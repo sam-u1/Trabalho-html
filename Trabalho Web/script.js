@@ -5,6 +5,7 @@ let users = [];
 function carrega() {
   id = 0;
   let user = [];
+	a
   for (let i = 0; i < localStorage.length; i++) {
 	const chave = localStorage.key(i);
     	const userJson = localStorage.getItem(chave);
@@ -176,4 +177,5 @@ if (localStorage.length > 0) {
 		userEditar = user;
   	}
    });
+
 }
