@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Gestão de Contatos</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header>
+    <h1>Sistema de Gestão de Contatos</h1>
+  </header>
+
+  <main class="container">
+    <!-- Formulário de contato -->
+    <section id="secao-formulario">
+      <h2>Adicionar ou Editar Contato</h2>
+      <form id="form-contato">
+
+        <div class="input-group">
+          <label for="nome"><i class="fa-solid fa-user"></i> Nome</label><br>
+          <input type="text" id="nome" placeholder="Digite o nome completo" required>
+        </div>
+
+        <div class="input-group">
+          <label for="email"><i class="fa-solid fa-envelope"></i> E-mail</label><br>
+          <input type="email" id="email" placeholder="exemplo@gmail.com" required>
+        </div>
+
+        <div class="input-group">
+          <label for="telefone"><i class="fa-solid fa-phone"></i> Telefone</label><br>
+          <input type="tel" id="telefone" placeholder="(00) 12345-6789" required>
+        </div>
+
+        <div class="botoes-form">
+          <button type="submit" id="btn-submit" class="btn-primario">
+            <i class="fa-solid fa-plus"></i> Cadastrar
+          </button>
+          <button type="reset" id="btn-limpar" class="btn-secundario">
+            <i class="fa-solid fa-eraser"></i> Limpar
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Campo de busca -->
+    <section id="secao-busca">
+      <input type="text" id="busca" placeholder="🔍 Buscar contato...">
+    </section>
+
+    <!-- Lista de contatos -->
+    <section id="secao-lista">
+      <h2>Lista de Contatos</h2>
+      <table id="tabela-contatos">
+        <thead>
+          <tr>
+            <th>Nome </th>
+            <th>E-mail </th>
+            <th>Telefone </th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-contatos">
+          <!-- Contatos aparecem aqui dinamicamente -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>Diogo e Samuel • Projeto de Gestão de Contatos © 2025</p>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>

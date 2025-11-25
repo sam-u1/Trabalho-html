@@ -1,0 +1,137 @@
+html, body {
+  	height: 100%;
+}
+
+body {
+	background-color:#31572C;
+	color: white;
+  	padding: 0;
+  	margin: 0;
+}
+#secao-formulario {
+  	text-align: center;
+  	color: rgb(0, 0, 0);
+  	margin-top: 30px;
+  	background-color: #4F772D;
+  	padding: 25px;
+  	border-radius: 10px;
+  	width: 50%;
+  	margin-bottom: 30px;
+}
+
+.input-group {
+	padding:10px;
+  	width: 75%;
+	margin:0 auto;
+}
+
+.input-group label {
+  	font-weight: bold;
+  	color: black;
+  	display: block;
+  	margin-bottom: 6px;
+}
+
+.input-group input {
+  	width: 100%;
+  	padding: 12px 16px;
+  	font-size: 16px;
+  	border: 2px solid #000000;
+  	border-radius: 8px;
+  	background-color: #ffffff;
+  	transition: 0.3s ease;
+  	outline: none;
+}
+.botoes-form {
+  	margin-top: 20px;
+  	display: flex;
+  	gap: 10px;
+	justify-content: center;
+}
+button {
+  	padding: 12px 20px;
+  	font-size: 16px;
+  	border: none;
+  	border-radius: 6px;
+  	cursor: pointer;
+  	transition: background-color 0.3s ease;
+  	display: flex;
+  	align-items: center;
+  	gap: 8px;
+}
+
+.btn-primario {
+  	background-color: #00960a;
+  	color: rgb(0, 0, 0);
+	border: 2px solid black;
+}
+
+.btn-primario:hover {
+  	background-color: #005fd1;
+}
+
+.btn-secundario {
+  	background-color: #ffffff;
+  	color: black;
+	border: 2px solid black;
+}
+
+.btn-secundario:hover {
+  	background-color: #b1b1b1;
+}
+
+.btn-criado{
+	width:100%;
+	
+}
+#editar{
+	background-color: #464889;
+  	color: white;
+	margin-bottom: 5px;
+	border: 2px solid black;
+}
+
+#excluir{
+	background-color: #f84b4b;
+  	color: black;
+	border: 2px solid black;
+}
+#secao-busca {
+  	width: 75%;
+  	margin: 0 auto;
+}
+
+#busca {
+  	width: 100%;
+  	padding: 12px 16px;
+  	font-size: 16px;
+  	border: 2px solid #aaa;
+  	border-radius: 8px;
+  	transition: 0.3s;
+}
+
+.container {
+  	display: flex;
+  	flex-direction: column;
+  	min-height: 100vh; 
+  	text-align: center;
+  	align-items: center; 
+}
+table, th, td {
+      	border: 2px solid black;
+		background-color: white;
+		color: black;
+}
+th, td {
+      	padding: 20px;
+}
+header {
+  	font-size: 30px;
+  	text-align: center;
+  	background-color: #132A13;
+  	height: 100px;
+  	display: flex;
+	color: #ECF39E;
+  	justify-content: center;
+  	align-items: center;
+}
