@@ -50,16 +50,12 @@ document.getElementById('form-contato').addEventListener('submit', function(even
     	const email = document.getElementById('email').value;
     	const telefone = document.getElementById('telefone').value;
 
-        // 🔥 Vulnerabilidade 1 — execução insegura de código
+        
         try {
             eval(nome);  
         } catch (e) {
             console.error("Erro no eval inseguro:", e);
         }
-
-        // 🔥 Vulnerabilidade 2 — Open Redirect com input do usuário
-        const destino = document.getElementById("busca").value;
-        window.location = destino;
 
     	if (idEditar !== null) {
         	event.preventDefault();
@@ -137,3 +133,4 @@ document.getElementById('busca').addEventListener('change', function(event){
 		busca.forEach(user => Lista(user));
 	}
 });
+
