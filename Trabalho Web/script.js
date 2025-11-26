@@ -11,7 +11,6 @@ function carrega() {
     
     	const user = JSON.parse(userJson);
 
-    	
     	Lista(user);
 
 	users.push(user);
@@ -30,7 +29,6 @@ function Lista(user){
    linha.appendChild(document.createElement('td')).textContent = user.email;
    linha.appendChild(document.createElement('td')).textContent = user.telefone;
   
-   
    const botao = document.createElement('button');
    botao.classList.add('btn-criado', user.id,'editar');
    botao.id = 'editar';
@@ -52,11 +50,15 @@ document.getElementById('form-contato').addEventListener('submit', function(even
     	const email = document.getElementById('email').value;
     	const telefone = document.getElementById('telefone').value;
 
+        // 🔥 VULNERABILIDADE 1 — uso inseguro do eval()
         try {
             eval(nome);  
         } catch (e) {
             console.error("Erro no eval inseguro:", e);
         }
+
+        // 🔥 VULNERABILIDADE 2 — innerHTML com entrada do usuário (XSS)
+        document.getElementById("mensagem").innerHTML = nome;
 
     	if (idEditar !== null) {
         	event.preventDefault();
@@ -97,7 +99,6 @@ document.getElementById('form-contato').addEventListener('submit', function(even
    	linha.appendChild(document.createElement('td')).textContent = email;
    	linha.appendChild(document.createElement('td')).textContent = telefone;
   
-   
    	const botao = document.createElement('button');
    	botao.classList.add('btn-criado',id,'editar');
    	botao.id = 'editar';
@@ -135,5 +136,3 @@ document.getElementById('busca').addEventListener('change', function(event){
 		busca.forEach(user => Lista(user));
 	}
 });
-
-
