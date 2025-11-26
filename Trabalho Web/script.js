@@ -10,7 +10,6 @@ function carrega() {
     	const userJson = localStorage.getItem(chave);
     
     	const user = JSON.parse(userJson);
-
     	Lista(user);
 
 	users.push(user);
@@ -29,6 +28,7 @@ function Lista(user){
    linha.appendChild(document.createElement('td')).textContent = user.email;
    linha.appendChild(document.createElement('td')).textContent = user.telefone;
   
+   
    const botao = document.createElement('button');
    botao.classList.add('btn-criado', user.id,'editar');
    botao.id = 'editar';
@@ -62,6 +62,8 @@ document.getElementById('form-contato').addEventListener('submit', function(even
 		const index = users.findIndex(u => u.id === userAtualizado.id);
 		
 		users[index] = userAtualizado;
+		
+
 	
 		const linhas = document.querySelectorAll('#lista-contatos tr');
 		linhas.forEach(linha => {
@@ -89,6 +91,7 @@ document.getElementById('form-contato').addEventListener('submit', function(even
    	linha.appendChild(document.createElement('td')).textContent = email;
    	linha.appendChild(document.createElement('td')).textContent = telefone;
   
+   
    	const botao = document.createElement('button');
    	botao.classList.add('btn-criado',id,'editar');
    	botao.id = 'editar';
@@ -113,6 +116,8 @@ document.getElementById('form-contato').addEventListener('submit', function(even
    	const usuarioStringJSON = JSON.stringify(userObjeto);
   
    	localStorage.setItem(userObjeto.id, usuarioStringJSON);
+  
+   
 });
 
 carrega();
@@ -127,4 +132,48 @@ document.getElementById('busca').addEventListener('change', function(event){
 	}
 });
 
+if (localStorage.length > 0) {
+   document.getElementById('lista-contatos').addEventListener('click', function(event) {
+	if (event.target.classList.contains('excluir')) {
+		const tr = event.target.closest('tr');
 
+		const id = parseInt(event.target.classList[1]);
+
+		const index = users.findIndex(user => user.id === id);
+
+		users.splice(index,1);
+
+		
+		localStorage.removeItem(event.target.classList[1]);
+		tr.remove();
+		if(idEditar){
+			idEditar=null;
+			document.getElementById('btn-submit').textContent ='Cadastrar';
+			document.getElementById('form-contato').reset();
+		}
+  	}
+   });
+}
+
+if (localStorage.length > 0) {
+   document.getElementById('lista-contatos').addEventListener('click', function(event) {
+	if (event.target.classList.contains('editar')) {
+		idEditar = event.target.classList[1];
+		
+		
+
+		const tr = event.target.closest('tr');
+		const userJson = localStorage.getItem(event.target.classList[1]);
+		const user = JSON.parse(userJson);
+			
+		document.getElementById('nome').value = user.nome;
+		document.getElementById('email').value = user.email;
+		document.getElementById('telefone').value = user.telefone;
+		
+		
+		
+		document.getElementById('btn-submit').textContent= 'Salvar Alterações';
+		userEditar = user;
+  	}
+   });
+}
