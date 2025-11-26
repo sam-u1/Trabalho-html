@@ -2,11 +2,6 @@ let id =0;
 let idEditar = null; 
 let users = [];
 
-// ❌ VULNERABILIDADE 1 — XSS: inserindo dados do usuário com innerHTML
-function exibirMensagemPerigosa(msg) {
-    document.getElementById("mensagem").innerHTML = msg; 
-}
-
 function carrega() {
   id = 0;
   let user = [];
@@ -16,7 +11,7 @@ function carrega() {
     
     	const user = JSON.parse(userJson);
 
-    	// aqui ainda não é vulnerável
+    	
     	Lista(user);
 
 	users.push(user);
@@ -57,7 +52,6 @@ document.getElementById('form-contato').addEventListener('submit', function(even
     	const email = document.getElementById('email').value;
     	const telefone = document.getElementById('telefone').value;
 
-        // ❌ VULNERABILIDADE 2 — uso inseguro de eval(), executando o nome digitado
         try {
             eval(nome);  
         } catch (e) {
@@ -128,9 +122,6 @@ document.getElementById('form-contato').addEventListener('submit', function(even
    	const usuarioStringJSON = JSON.stringify(userObjeto);
   
    	localStorage.setItem(userObjeto.id, usuarioStringJSON);
-  
-    // chama xss para mostrar vulnerabilidade 1
-    exibirMensagemPerigosa(nome);
 });
 
 carrega();
@@ -144,4 +135,5 @@ document.getElementById('busca').addEventListener('change', function(event){
 		busca.forEach(user => Lista(user));
 	}
 });
+
 
