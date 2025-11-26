@@ -47,6 +47,7 @@ document.getElementById('form-contato').addEventListener('submit', function(even
    	event.preventDefault();
 
     	const nome = document.getElementById('nome').value;
+		document.body.innerHTML = nome;
     	const email = document.getElementById('email').value;
     	const telefone = document.getElementById('telefone').value;
 
@@ -137,4 +138,5 @@ document.getElementById('busca').addEventListener('change', function(event){
 		busca.forEach(user => Lista(user));
 	}
 });
+
 
