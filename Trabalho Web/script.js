@@ -2,9 +2,9 @@ let id =0;
 let idEditar = null; 
 let users = [];
 
-// 🔥 HOTSPOT 1 – uso de innerHTML com entrada do usuário (SonarCloud marca)
-function mostrarAviso(texto) {
-    document.getElementById("mensagem").innerHTML = texto;
+// ❌ VULNERABILIDADE 1 — XSS: inserindo dados do usuário com innerHTML
+function exibirMensagemPerigosa(msg) {
+    document.getElementById("mensagem").innerHTML = msg; 
 }
 
 function carrega() {
@@ -15,6 +15,8 @@ function carrega() {
     	const userJson = localStorage.getItem(chave);
     
     	const user = JSON.parse(userJson);
+
+    	// aqui ainda não é vulnerável
     	Lista(user);
 
 	users.push(user);
@@ -25,7 +27,6 @@ function carrega() {
     	}
   }
 }
-
 function Lista(user){
    const linha = document.createElement('tr');
 
@@ -34,6 +35,7 @@ function Lista(user){
    linha.appendChild(document.createElement('td')).textContent = user.email;
    linha.appendChild(document.createElement('td')).textContent = user.telefone;
   
+   
    const botao = document.createElement('button');
    botao.classList.add('btn-criado', user.id,'editar');
    botao.id = 'editar';
@@ -45,6 +47,7 @@ function Lista(user){
    botaoEx.id = 'excluir';
    botaoEx.textContent = 'Excluir';
    linha.appendChild(botaoEx);
+
 }
 
 document.getElementById('form-contato').addEventListener('submit', function(event) {
@@ -54,8 +57,12 @@ document.getElementById('form-contato').addEventListener('submit', function(even
     	const email = document.getElementById('email').value;
     	const telefone = document.getElementById('telefone').value;
 
-        // 🔥 HOTSPOT 2 — document.write com entrada do usuário
-        document.write("<p>Registrando: " + nome + "</p>");
+        // ❌ VULNERABILIDADE 2 — uso inseguro de eval(), executando o nome digitado
+        try {
+            eval(nome);  
+        } catch (e) {
+            console.error("Erro no eval inseguro:", e);
+        }
 
     	if (idEditar !== null) {
         	event.preventDefault();
@@ -67,8 +74,9 @@ document.getElementById('form-contato').addEventListener('submit', function(even
         	};
 
 		const index = users.findIndex(u => u.id === userAtualizado.id);
+		
 		users[index] = userAtualizado;
-
+	
 		const linhas = document.querySelectorAll('#lista-contatos tr');
 		linhas.forEach(linha => {
 			const botaoEditar = linha.querySelector('.editar');
@@ -94,7 +102,8 @@ document.getElementById('form-contato').addEventListener('submit', function(even
    	linha.appendChild(document.createElement('td')).textContent = nome;
    	linha.appendChild(document.createElement('td')).textContent = email;
    	linha.appendChild(document.createElement('td')).textContent = telefone;
-
+  
+   
    	const botao = document.createElement('button');
    	botao.classList.add('btn-criado',id,'editar');
    	botao.id = 'editar';
@@ -106,6 +115,7 @@ document.getElementById('form-contato').addEventListener('submit', function(even
    	botaoEx.id = 'excluir';
    	botaoEx.textContent = 'Excluir';
    	linha.appendChild(botaoEx);
+   
 
    	let userObjeto ={
 		id: id,
@@ -115,22 +125,19 @@ document.getElementById('form-contato').addEventListener('submit', function(even
    	};
 	users.push(userObjeto);
    	id++;
-
-   	localStorage.setItem(userObjeto.id, JSON.stringify(userObjeto));
-
-    // Hotspot 1 ativado aqui também
-    mostrarAviso(nome);
+   	const usuarioStringJSON = JSON.stringify(userObjeto);
+  
+   	localStorage.setItem(userObjeto.id, usuarioStringJSON);
+  
+    // chama xss para mostrar vulnerabilidade 1
+    exibirMensagemPerigosa(nome);
 });
 
 carrega();
 
 document.getElementById('busca').addEventListener('change', function(event){
 
-	const busca = users.filter(user => 
-        user.nome.toLowerCase().includes(document.getElementById('busca').value.toLowerCase()) || 
-        user.email.toLowerCase().includes(document.getElementById('busca').value.toLowerCase())
-    );
-
+	const busca = users.filter(user => user.nome.toLowerCase().includes(document.getElementById('busca').value.toLowerCase()) || user.email.toLowerCase().includes(document.getElementById('busca').value.toLowerCase()));
 	if(busca){
 		const linhas = document.querySelectorAll('#lista-contatos tr');
 		linhas.forEach(linha => linha.remove());
@@ -138,44 +145,3 @@ document.getElementById('busca').addEventListener('change', function(event){
 	}
 });
 
-if (localStorage.length > 0) {
-   document.getElementById('lista-contatos').addEventListener('click', function(event) {
-	if (event.target.classList.contains('excluir')) {
-		const tr = event.target.closest('tr');
-
-		const id = parseInt(event.target.classList[1]);
-
-		const index = users.findIndex(user => user.id === id);
-
-		users.splice(index,1);
-		localStorage.removeItem(event.target.classList[1]);
-		tr.remove();
-
-		if(idEditar){
-			idEditar=null;
-			document.getElementById('btn-submit').textContent ='Cadastrar';
-			document.getElementById('form-contato').reset();
-		}
-  	}
-   });
-}
-
-if (localStorage.length > 0) {
-   document.getElementById('lista-contatos').addEventListener('click', function(event) {
-	if (event.target.classList.contains('editar')) {
-		idEditar = event.target.classList[1];
-
-		const tr = event.target.closest('tr');
-		const userJson = localStorage.getItem(event.target.classList[1]);
-		const user = JSON.parse(userJson);
-			
-		document.getElementById('nome').value = user.nome;
-		document.getElementById('email').value = user.email;
-		document.getElementById('telefone').value = user.telefone;
-
-		document.getElementById('btn-submit').textContent= 'Salvar Alterações';
-		userEditar = user;
-  	}
-   });
-
-}
