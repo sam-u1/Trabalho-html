@@ -50,13 +50,6 @@ document.getElementById('form-contato').addEventListener('submit', function(even
     	const email = document.getElementById('email').value;
     	const telefone = document.getElementById('telefone').value;
 
-        
-        try {
-            eval(nome);  
-        } catch (e) {
-            console.error("Erro no eval inseguro:", e);
-        }
-
     	if (idEditar !== null) {
         	event.preventDefault();
         	const userAtualizado = {
@@ -133,4 +126,5 @@ document.getElementById('busca').addEventListener('change', function(event){
 		busca.forEach(user => Lista(user));
 	}
 });
+
 
