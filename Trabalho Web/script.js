@@ -14,7 +14,7 @@ function carrega() {
 
 	users.push(user);
 	
-    	const maiorChave = parseInt(chave);
+    	const maiorChave = Number.parseInt(chave);
     	if (!isNaN(maiorChave) && maiorChave >= id) {
         	id = maiorChave + 1;
     	}
@@ -68,7 +68,7 @@ document.getElementById('form-contato').addEventListener('submit', function(even
 		const linhas = document.querySelectorAll('#lista-contatos tr');
 		linhas.forEach(linha => {
 			const botaoEditar = linha.querySelector('.editar');
-			if (parseInt(botaoEditar.classList[1]) === parseInt(userAtualizado.id)) {
+			if (Number.parseInt(botaoEditar.classList[1]) === Nmumber.parseInt(userAtualizado.id)) {
 				linha.children[0].textContent = userAtualizado.nome;
 				linha.children[1].textContent = userAtualizado.email;
 				linha.children[2].textContent = userAtualizado.telefone;
@@ -137,7 +137,7 @@ if (localStorage.length > 0) {
 	if (event.target.classList.contains('excluir')) {
 		const tr = event.target.closest('tr');
 
-		const id = parseInt(event.target.classList[1]);
+		const id = Number.parseInt(event.target.classList[1]);
 
 		const index = users.findIndex(user => user.id === id);
 
@@ -177,3 +177,4 @@ if (localStorage.length > 0) {
   	}
    });
 }
+
