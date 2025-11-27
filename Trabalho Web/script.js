@@ -4,7 +4,6 @@ let users = [];
 
 function carrega() {
   id = 0;
-  let user = [];
   for (let i = 0; i < localStorage.length; i++) {
 	const chave = localStorage.key(i);
     	const userJson = localStorage.getItem(chave);
@@ -12,7 +11,7 @@ function carrega() {
     	const user = JSON.parse(userJson);
     	Lista(user);
 
-	users.push(user);
+		users.push(user);
 	
     	const maiorChave = Number.parseInt(chave);
     	if (!Number.isNaN(maiorChave) && maiorChave >= id) {
@@ -176,6 +175,7 @@ if (localStorage.length > 0) {
   	}
    });
 }
+
 
 
 
