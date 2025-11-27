@@ -173,10 +173,10 @@ if (localStorage.length > 0) {
 		
 		
 		document.getElementById('btn-submit').textContent= 'Salvar Alterações';
-		const userEditar = user;
   	}
    });
 }
+
 
 
 
