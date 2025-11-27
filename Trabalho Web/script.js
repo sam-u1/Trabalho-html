@@ -15,7 +15,7 @@ function carrega() {
 	users.push(user);
 	
     	const maiorChave = Number.parseInt(chave);
-    	if (!isNaN(maiorChave) && maiorChave >= id) {
+    	if (!Number.isNaN(maiorChave) && maiorChave >= id) {
         	id = maiorChave + 1;
     	}
   }
@@ -162,7 +162,7 @@ if (localStorage.length > 0) {
 		
 		
 
-		const tr = event.target.closest('tr');
+		
 		const userJson = localStorage.getItem(event.target.classList[1]);
 		const user = JSON.parse(userJson);
 			
@@ -177,4 +177,5 @@ if (localStorage.length > 0) {
   	}
    });
 }
+
 
