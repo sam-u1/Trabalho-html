@@ -173,9 +173,10 @@ if (localStorage.length > 0) {
 		
 		
 		document.getElementById('btn-submit').textContent= 'Salvar Alterações';
-		userEditar = user;
+		const userEditar = user;
   	}
    });
 }
+
 
 
